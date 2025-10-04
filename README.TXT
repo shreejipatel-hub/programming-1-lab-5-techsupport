@@ -38,4 +38,45 @@ Then start describing your problem by typing in the terminal window.
     in arraylist everything will be returned doesnt matter if its 
     a duplicate and it will be printed in order.
 36)yes it is a problem because now we just have an extra empty string 
-37)
+43)the putIfAbsent method is supposed to add a new key-value pair
+    if and only if its not already present.
+44)public void printWordCounts()
+    {
+        System.out.println("\n--- Word Usage Summary ---");
+        for(Map.Entry<String, Integer> entry : counts.entrySet())
+        {
+            String word = entry.getKey();
+            Integer count = entry.getValue();
+            System.out.println("'"+word+"':"+count);
+        }
+        System.out.println("----------------");
+    }
+45)public HashMap<String, String> getResponseMap()
+    {
+        return responseMap;
+    }
+    
+    public void printFilteredWordCounts(HashMap<String, String>knownWordsMap)
+    {
+        System.out.println("\n--- Unknown Word Usage Summary ---");
+        
+        for(java.util.Map.Entry<String, Integer>entry: counts.entrySet())
+        {
+            String word = entry.getKey();
+            Integer count = entry.getValue();
+            if(!knownWordsMap.containsKey(word))
+            {
+                System.out.println("'"+word+"':"+counts);
+            }
+        }
+        System.out.println("----------------");
+    }
+47)@author tag(makrs the creators of th class)
+    @ version tag (give the current version of the code)
+    @param tag(describes oen of the parameters that a method accepts)
+    @return tag(describes the value that method sends back)
+    
+48)@since tag(indicates the version of the product where the elemnt was first added or became avalaible)
+    @see tag (adds a "see also" link to other related documentation)
+    @@throws tag (documents an exception that the method might throw)
+

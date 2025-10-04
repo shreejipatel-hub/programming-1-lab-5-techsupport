@@ -38,3 +38,4 @@ Then start describing your problem by typing in the terminal window.
     in arraylist everything will be returned doesnt matter if its 
     a duplicate and it will be printed in order.
 36)yes it is a problem because now we just have an extra empty string 
+37)

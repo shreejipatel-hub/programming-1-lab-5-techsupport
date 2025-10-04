@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * The responder class represents a response generator object. It is used
  * to generate an automatic response. This is the second version of this 
@@ -15,6 +18,7 @@ public class Responder
     private Random randomGenerator;
     private HashMap<String,String> responsesmap;
     private ArrayList<String> defaultResponses;
+    private int lastDefaultIndex;
     /**
      * Construct a Responder
      */
@@ -25,6 +29,7 @@ public class Responder
         defaultResponses = new ArrayList<String>();
         fillResponsesmap();
         fillDefaultResponses();
+        lastDefaultIndex = -1;
     }
 
     /**
@@ -32,20 +37,21 @@ public class Responder
      * 
      * @return  A string that should be displayed as the response
      */
-    public String generateResponse(String word)
+    public String generateResponse(HashSet<String>words)
     {
         // Pick a random number for the index in the default response 
         // list. The number will be between 0 (inclusive) and the size
         // of the list (exclusive).
-        String response = responsesmap.get(word);
-        if (response != null)
+        
+        for (String word : words)
         {
-            return response;
-        }
-        else
-        {
-           return pickDefaultResponse(); 
-        }
+            String response = responsesmap.get(word);
+            if (response != null)
+            {
+                return response;
+            }
+        }        
+        return pickDefaultResponse(); 
     }
 
     /**
@@ -61,6 +67,11 @@ public class Responder
         responsesmap.put("error", "Please tell me the exact error code.");
         responsesmap.put("install", "Did you run the setup file as an administrator?");
         responsesmap.put("login", "Are you sure you're using the correct username and password?");
+        responsesmap.put("freeze", "A temporary freeze might be fixed by closing all browser windows.");
+        responsesmap.put("update", "Did you receive any error messages during the last update attempt?");
+        responsesmap.put("sound", "Check that your audio cables are securely plugged in and not damaged.");
+        responsesmap.put("internet", "Is your modem showing a stable connection light, or is it blinking?");
+        responsesmap.put("password", "Have you tried resetting your password using the 'forgot password' link?");
     }
     
     private void fillDefaultResponses()
@@ -75,8 +86,15 @@ public class Responder
     
     private String pickDefaultResponse()
     {
-        int index = randomGenerator.nextInt(defaultResponses.size());
-        return defaultResponses.get(index);
+        int newIndex;
+        do
+        {
+            newIndex = randomGenerator.nextInt(defaultResponses.size());
+        }
+        while(newIndex == lastDefaultIndex)  ;
+        lastDefaultIndex = newIndex;
+        
+        return defaultResponses.get(newIndex);
     }
 }
 
